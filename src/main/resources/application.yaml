@@ -3,25 +3,25 @@ spring:
   cloud:
     stream:
       function:
-        definition: notificationRequestProcessor
+        definition: notificationEventsProcessor
       kafka:
         binder:
           brokers: localhost:9092
           auto-create-topics: true
         bindings:
-          notificationRequestProcessor-in-0:
+          notificationEventsProcessor-in-0:
             consumer:
               ackMode: BATCH
               enableDlq: true
-              dlqName: notification-request-dlq
+              dlqName: notification-events-dlq
       bindings:
-        notificationRequestProcessor-in-0:
-          destination: notification-requests
+        notificationEventsProcessor-in-0:
+          destination: notification-events
           group: notification-server
-        notificationRequestProcessor-out-0:
-          destination: notification-responses
+        notificationEventsProcessor-out-0:
+          destination: notification-event-acks
         testNotificationProducer-out-0:
-          destination: notification-requests
+          destination: notification-events
 
 notification-cache:
   host: localhost:6379

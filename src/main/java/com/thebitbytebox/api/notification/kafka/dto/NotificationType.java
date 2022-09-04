@@ -1,4 +1,4 @@
-package com.thebitbytebox.api.notification.constants.kafka.dto;
+package com.thebitbytebox.api.notification.kafka.dto;
 
 import lombok.Getter;
 
