@@ -1,0 +1,31 @@
+
+spring:
+  cloud:
+    stream:
+      function:
+        definition: notificationRequestProcessor
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+        bindings:
+          notificationRequestProcessor-in-0:
+            consumer:
+              ackMode: BATCH
+              enableDlq: true
+              dlqName: notification-request-dlq
+      bindings:
+        notificationRequestProcessor-in-0:
+          destination: notification-requests
+          group: notification-server
+        notificationRequestProcessor-out-0:
+          destination: notification-responses
+        testNotificationProducer-out-0:
+          destination: notification-requests
+
+notification-cache:
+  host: localhost:6379
+  standalone: true
+  ttl: 86400
+  maxIdleTime: 86400
+  ssl: false
